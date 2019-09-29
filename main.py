@@ -2,25 +2,9 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 57,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Financial Analysis\n",
-      "\n",
-      "----------------------------\n",
-      "\n",
-      "Total Months : 86\n",
-      "Total: $ 38382578\n",
-      "Average Change: $ -2315.12\n",
-      "Greatest Increase in Profits: Feb-2012 : ($ 1926159)\n",
-      "Greatest Decrease in Profits: Sep-2013 : ($ -2196167)\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "# First we'll import the os module\n",
     "# This will allow us to create file paths across operating systems\n",
@@ -105,6 +89,27 @@
     "\n",
     "\n"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
