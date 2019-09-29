@@ -1,0 +1,81 @@
+# First we'll import the os module
+# This will allow us to create file paths across operating systems
+import os
+
+# Import module for reading CSV files
+import csv
+
+#creating a path to access the csv file
+PyBank = os.path.join('/Users/Areli','Desktop','Python-Challenge','PyBank','budget_data.csv')
+#creating a path to createt a txt file
+file_to_output = os.path.join('/Users/Areli','Desktop','Python-Challenge','PyBank','PyBankAnalysis.txt')
+
+#Variables
+total_num_of_months = 0
+Total = 0
+p_revenue = 867884
+r_change = 0
+g_increase = 0
+g_decrease = 0
+Avaerage_Change = 0
+Total_change = 0
+
+#Open and read CSV file
+with open(PyBank, newline='') as csvfile:
+     csvreader = csv.reader(csvfile, delimiter=',')
+     #print(csvreader)
+     csv_header = next(csvreader)
+     print(f'Financial Analysis'+'\n')
+     print(f'----------------------------'+'\n')
+     for i in csvreader:
+         #getting the total number of months and overall revenue
+         month = i[0]
+         total_num_of_months = total_num_of_months + 1
+         total_net_amount = i[1]
+         t_net_amount = int(total_net_amount)
+         Total += int(total_net_amount)
+            
+         #Calculating the change btwn total net and previous rev
+         r_change =  t_net_amount - p_revenue
+            
+         #Calculating greatest increase in profits
+         if g_increase < r_change:
+            g_increase = r_change
+            g_increaseDate = month
+            
+         #Calcualting greatest decrease in profits
+         if g_decrease > r_change:
+            g_decrease = r_change
+            g_decreaseDate = month
+         #Once it loops, the new value is p_revenue
+         p_revenue = t_net_amount  
+         
+        #calculating the average
+         Total_change = Total_change + r_change
+         
+    #Calcualting the average change
+Average_change =  Total_change / (amount - 1)
+Average_Change = round(Average_change,2)  
+
+## Display Output Results in Python ##      
+
+print(f'Total Months : {total_num_of_months}')
+#The total net amount of "Profit/Losses" over the entire period
+print(f'Total: $ {Total}')
+#average change
+print(f'Average Change: $ {Average_Change}')
+# Greatest increase in profit
+print(f'Greatest Increase in Profits: {g_increaseDate} : ($ {g_increase})')
+# Greatest increase in profit
+print(f'Greatest Decrease in Profits: {g_decreaseDate} : ($ {g_decrease})')
+
+#printing a txt file
+with open(file_to_output,'w') as outputfile:
+        outputfile.write(f'Financial Analysis'+'\n')
+        outputfile.write(f'----------------------------'+'\n')
+        outputfile.write(f'Total Months:{total_num_of_months}' +'\n') 
+        outputfile.write(f'Total : $ {Total}' +'\n')
+        outputfile.write(f'Average  Change: $ {Average_Change}'+'\n')
+        outputfile.write(f'Greatest Increase in Profits: {g_increaseDate} : ($ {g_increase})'+'\n')
+        outputfile.write(f'Greatest Decrease in Profits: {g_decreaseDate} : ($ {g_decrease})'+'\n')
+
