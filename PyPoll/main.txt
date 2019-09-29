@@ -1,0 +1,62 @@
+# First we'll import the os module
+# This will allow us to create file paths across operating systems
+import os
+
+# Import module for reading CSV files
+import csv
+
+#creating my path
+PyPoll = os.path.join('/Users/Areli','Desktop','Python-Challenge','PyPoll','election_data.csv')
+
+#creating a path to export a txt file
+file_to_output = os.path.join('/Users/Areli','Desktop','Python-Challenge','PyPoll','PyPollAnalysis.txt')
+                              
+#Variables
+TotalVotes =0
+candidate_name = ""
+CandidateOptions = {}
+Percent_for_candidate ={}
+winner_votes = 0
+Winner = ""
+
+# Open csv file and read
+with open(PyPoll,'r', newline="") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    header = next(csvreader)
+    for row in csvreader:
+        TotalVotes = TotalVotes + 1 #count overall total votes
+        candidate_name = row[2] #setting candidate to row 2
+        if candidate_name in CandidateOptions:
+            CandidateOptions[candidate_name] = CandidateOptions[candidate_name] + 1 #counter for each candidate votes
+        else:
+            CandidateOptions[candidate_name] = 1 #if there is not another vote for that candidate stay at 1
+
+# calculate vote percentage 
+for (candidate), vote_count in CandidateOptions.items():
+    Percent_for_candidate[candidate] = '{0:0.000%}'.format(vote_count / TotalVotes)
+
+#Identify Winner
+    if vote_count > winner_votes:
+        winner_votes = vote_count #if the previous is greater than the actual one make that the new winner_vote
+        Winner = candidate
+
+## RESULTS
+print("Election Results")    
+print(f'----------------------------'+'\n')
+print(f"Total Votes: {TotalVotes}")
+print(f'----------------------------'+'\n')
+for (candidate), vote_count in CandidateOptions.items():
+    print(f"{candidate}: {Percent_for_candidate[candidate]} ({vote_count})")
+print(f'----------------------------'+'\n')
+print(f"Winner: {Winner}")
+                              
+#exporting to a txt file
+with open(file_to_output,'w') as outputfile:
+        outputfile.write(f'Election Results'+'\n')
+        outputfile.write(f'----------------------------'+'\n')
+        outputfile.write(f'Total Votes: {TotalVotes}' +'\n') 
+        outputfile.write(f'----------------------------'+'\n')
+        for (candidate), vote_count in CandidateOptions.items():
+             outputfile.write(f'{candidate}: {Percent_for_candidate[candidate]} ({vote_count})'+'\n')
+        outputfile.write(f'----------------------------'+'\n')
+        outputfile.write(f'Winner: {Winner}')
